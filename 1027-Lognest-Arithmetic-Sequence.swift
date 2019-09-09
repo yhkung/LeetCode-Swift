@@ -1,21 +1,19 @@
+/// https://leetcode.com/problems/longest-arithmetic-sequence/
 /// 1027. Longest Arithmetic Sequence
 class Solution {
     func longestArithSeqLength(_ A: [Int]) -> Int {
         guard A.count > 1 else { return A.count }
-        var longest = 1
+        var res = Int.min
         var dp = Array(repeating: [Int: Int](), count: A.count)
-        for i in 1..<A.count {
+        
+        for i in 0..<A.count {
             for j in 0..<i {
-                let d = A[i] - A[j]
-                var len = 2
-                if let times = dp[j][d] {
-                    len = times + 1
-                }
-                let curr = dp[i][d] ?? 0
-                dp[i][d] = max(curr, len)
-                longest = max(longest, dp[i][d]!)
+                let d = A[j] - A[i]
+                dp[i][d] = dp[j][d, default: 1] + 1
+                res = max(res, dp[i][d, default: 2])                
             }
-        }
-        return longest
+        }        
+        
+        return res
     }
 }
