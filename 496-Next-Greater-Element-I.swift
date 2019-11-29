@@ -18,3 +18,28 @@ func nextGreaterElement(_ nums1: [Int], _ nums2: [Int]) -> [Int] {
     }
     return res
 }
+
+/// 496. Next Greater Element I
+/// Approach #2 - Using stack
+/// - Time Complexity: O(m + n)
+/// - Space Complexity: O(m + n)
+class Solution {
+    func nextGreaterElement(_ nums1: [Int], _ nums2: [Int]) -> [Int] {
+        var stack = [Int]()
+        var res = Array(repeating: -1, count: nums1.count)
+        var map = [Int: Int]()        
+        for num2 in nums2 {
+            while !stack.isEmpty && num2 > stack.last! {
+                map[stack.popLast()!] = num2
+            }            
+            stack.append(num2)
+        }
+        while !stack.isEmpty {
+            map[stack.popLast()!] = -1
+        }
+        for (i, num) in nums1.enumerated() {
+            res[i] = map[num]!
+        }
+        return res
+    }
+}
