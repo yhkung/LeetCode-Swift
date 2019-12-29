@@ -1,5 +1,6 @@
 /// 284. Walls and Gates
 /// - Time Complexity: O(mn)
+/// - Space Complexity: O(mn)
 class Solution {
     private let directions = [
         (1, 0),
