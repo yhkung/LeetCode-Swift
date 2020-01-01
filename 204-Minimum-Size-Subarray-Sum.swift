@@ -21,3 +21,24 @@ class Solution {
         return res == Int.max ? 0 : res
     }
 }
+
+/// 204. Minimum Size Subarray Sum
+/// Two Pointer
+/// - Time Complexity: O(n)
+/// - Space Complexity: O(1)
+class Solution {
+    func minSubArrayLen(_ s: Int, _ nums: [Int]) -> Int {
+        var minSize = Int.max
+        var sum = 0
+        var left = 0
+        for i in 0..<nums.count {
+            sum += nums[i]
+            while sum >= s {
+                minSize = min(minSize, i + 1 - left)
+                sum -= nums[left]
+                left += 1
+            }
+        }
+        return minSize != Int.max ? minSize : 0
+    }
+}
