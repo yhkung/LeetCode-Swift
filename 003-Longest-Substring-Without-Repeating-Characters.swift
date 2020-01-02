@@ -1,6 +1,6 @@
 /// 003. Longest Substring Without Repeating Characters
-/// Approach - Sliding Window
-/// - Time complexity : O(n)
+/// - Approach: Sliding Window
+/// - Time Complexity: O(n)
 class Solution {
     func lengthOfLongestSubstring(_ s: String) -> Int {
         guard s.count > 1 else { return s.count }
