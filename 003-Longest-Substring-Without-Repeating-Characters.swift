@@ -1,23 +1,19 @@
+/// 003. Longest Substring Without Repeating Characters
+/// Approach - Sliding Window
+/// - Time complexity : O(n)
 class Solution {
-    
-    /// Time complexity : O(n)
     func lengthOfLongestSubstring(_ s: String) -> Int {
         guard s.count > 1 else { return s.count }
-        
-        let chars = s.map { String($0) }
-        var map = [String: Int]()
+        var map = [Character: Int]()
         var maxLength = 1
         var startIndex = 0
-        
-        for i in 0..<chars.count {
-            if let prevIndex = map[chars[i]], (i - startIndex) <= maxLength {
+        for (i, c) in s.enumerated() {
+            if let prevIndex = map[c], (i - startIndex) <= maxLength {
                 startIndex = max(startIndex, prevIndex + 1)
             }
             maxLength = max(maxLength, i - startIndex + 1)
-            map[chars[i]] = i
+            map[c] = i
         }
-        
         return maxLength
     }
-    
 }
