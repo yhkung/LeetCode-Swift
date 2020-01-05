@@ -1,4 +1,5 @@
 /// 1268. Search Suggested System
+/// - Approach: Brute Force
 class Solution {
     private let maximumSuggestedNumber = 3
 
@@ -44,3 +45,7 @@ class Solution {
         return results
     }
 }
+
+
+/// 1268. Search Suggested System
+/// - Approach: Binary Search
