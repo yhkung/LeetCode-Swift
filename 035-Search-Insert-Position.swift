@@ -1,15 +1,7 @@
 /// 35. Search Insert Position
 /// - Time Complexity: O(log(n))
 class Solution {
-    func searchRange(_ nums: [Int], _ target: Int) -> [Int] {
-        let start = findFirstIndex(nums, target)
-        if start == nums.count || nums[start] != target {
-            return [-1, -1]
-        }
-        return [start, findFirstIndex(nums, target + 1) - 1]
-    }
-
-    func findFirstIndex(_ nums: [Int], _ target: Int) -> Int {
+    func searchInsert(_ nums: [Int], _ target: Int) -> Int {
         var low = 0
         var high = nums.count
         while low < high {
