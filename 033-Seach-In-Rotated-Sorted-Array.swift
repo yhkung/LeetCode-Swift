@@ -1,4 +1,5 @@
 /// 33. Search In Rotated Sorted Array
+/// - Approach: Two-Pass binary search
 /// - Time Complexity: O(logn)
 class Solution {
     func search(_ nums: [Int], _ target: Int) -> Int {
@@ -59,18 +60,32 @@ class Solution {
     }
 }
 
-let nums1 = [4, 5, 6, 7, 0, 1, 2]
-let nums2 = [0, 1, 2]
-
-assert(searchRotatedSortedArray(nums1, 4) == 0)
-assert(searchRotatedSortedArray(nums1, 5) == 1)
-assert(searchRotatedSortedArray(nums1, 6) == 2)
-assert(searchRotatedSortedArray(nums1, 7) == 3)
-assert(searchRotatedSortedArray(nums1, 0) == 4)
-assert(searchRotatedSortedArray(nums1, 1) == 5)
-assert(searchRotatedSortedArray(nums1, 2) == 6)
-assert(searchRotatedSortedArray(nums1, 8) == -1)
-
-assert(searchRotatedSortedArray(nums2, 0) == 0)
-assert(searchRotatedSortedArray(nums2, 1) == 1)
-assert(searchRotatedSortedArray(nums2, 2) == 2)
+/// 33. Search In Rotated Sorted Array
+/// - Approach: One-Pass binary search
+/// - Time Complexity: O(logn)
+class Solution {
+    func search(_ nums: [Int], _ target: Int) -> Int {
+        guard !nums.isEmpty else { return -1 }
+        var left = 0
+        var right = nums.count - 1
+        while right >= left {
+            let mid = left + (right - left) / 2
+            if nums[mid] == target {
+                return mid
+            } else if nums[mid] >= nums[left] {
+                if target >= nums[left] && target < nums[mid] {
+                    right = mid - 1
+                } else {
+                    left = mid + 1
+                }
+            } else {
+                if target <= nums[right] && target > nums[mid] {
+                    left = mid + 1
+                } else {
+                    right = mid - 1
+                }
+            }
+        }
+        return -1
+    }
+}
