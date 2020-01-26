@@ -10,7 +10,6 @@ class Solution {
         while low < high {
             let mid = low + (high - low) / 2
             var count = 0
-            var j = 0
             for i in 0..<row {
                 for j in 0..<col {
                     if matrix[i][j] <= mid {
