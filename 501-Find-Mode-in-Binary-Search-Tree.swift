@@ -53,3 +53,60 @@ class Solution {
         inorder(node.right)
     }
 }
+
+/// 501 - Find Mode in Binary Search Tree
+/// - Approach: Inorder traversal using Iteration
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public var val: Int
+ *     public var left: TreeNode?
+ *     public var right: TreeNode?
+ *     public init(_ val: Int) {
+ *         self.val = val
+ *         self.left = nil
+ *         self.right = nil
+ *     }
+ * }
+ */
+class Solution {
+
+    func findMode(_ root: TreeNode?) -> [Int] {
+        guard let root = root else { return [] }
+        var curr: TreeNode? = root
+        var prev: TreeNode? = root
+        var stack: [TreeNode] = []
+
+        var results: [Int] = []
+        var maxCount: Int = 0
+        var currCount: Int = 0
+        var currVal: Int = root.val
+
+        while !stack.isEmpty || curr != nil {
+            while let node = curr {
+                stack.append(node.left)
+                curr = node.left
+            }
+
+            let node = stack.removeLast()
+
+            if currVal != node.val {
+                currVal = node.val
+                currCount = 0
+            }
+
+            currCount += 1
+            if currCount > maxCount {
+                results.removeAll()
+                maxCount = currCount
+                results.append(node.val)
+            } else if currCount == maxCount {
+                results.append(node.val)
+            }
+
+            prev = node
+            curr = node.right
+        }
+    }
+
+}
