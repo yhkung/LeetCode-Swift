@@ -3,17 +3,24 @@
 /// - Time Complexity: O(n)
 class Solution {
     func lengthOfLongestSubstring(_ s: String) -> Int {
-        guard s.count > 1 else { return s.count }
-        var map = [Character: Int]()
-        var maxLength = 1
-        var startIndex = 0
-        for (i, c) in s.enumerated() {
-            if let prevIndex = map[c], (i - startIndex) <= maxLength {
-                startIndex = max(startIndex, prevIndex + 1)
+        guard !s.isEmpty else { return s.count }
+        let s = Array(s)
+        var start = 0
+        var end = 0
+        var length = 0
+        var map: [Character: Int] = [:]
+        while end < s.count {
+            map[s[end], default: 0] += 1
+            end += 1
+            if map.count <= length {
+                map[s[start]]! -= 1
+                if map[s[start]] == 0 {
+                    map.removeValue(forKey: s[start])
+                }
+                start += 1
             }
-            maxLength = max(maxLength, i - startIndex + 1)
-            map[c] = i
+            length = max(length, end - start)
         }
-        return maxLength
+        return length
     }
 }
