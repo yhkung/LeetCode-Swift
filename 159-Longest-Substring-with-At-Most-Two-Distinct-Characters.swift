@@ -6,23 +6,23 @@
 class Solution {
     func lengthOfLongestSubstringTwoDistinct(_ s: String) -> Int {
         guard s.count > 2 else { return s.count }
-        let s = Array(s)
+        var s = Array(s)
+        var map: [Character: Int] = [:]
+        var start = 0
+        var end = 0
         var maximumLength = 0
-        var left = 0
-        var right = 0
-        var map = [Character: Int]()
-        while right < s.count {
-            if map.count < 3 {
-                map[s[right]] = right
-                right += 1
+        while end < s.count {
+            map[s[end], default: 0] += 1
+            end += 1
+            while map.count > 2 {
+                let c = s[start]
+                map[c]! -= 1
+                if map[c] == 0 {
+                    map.removeValue(forKey: c)
+                }
+                start += 1
             }
-            if map.count == 3 {
-                let leftIndex = map.values.min()!
-                let charToBeRemoved = s[leftIndex]
-                map[charToBeRemoved] = nil
-                left = leftIndex + 1
-            }
-            maximumLength = max(maximumLength, right - left)
+            maximumLength = max(maximumLength, end - start)
         }
         return maximumLength
     }
