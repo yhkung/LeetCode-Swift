@@ -5,33 +5,29 @@
 class Solution {
     func findAnagrams(_ s: String, _ p: String) -> [Int] {
         let s = Array(s)
-        let p = Array(p)
-        var sDict = [Character: Int]()
-        var pDict = [Character: Int]()
-        var results = [Int]()
-        for c in p {
-            pDict[c, default: 0] += 1
-        }
+        var sMap: [Character: Int] = [:]
+        var pMap: [Character: Int] = [:]
+        Array(p).forEach { pMap[$0, default: 0] += 1 }
+        var start = 0
+        var end = 0
+        var results: [Int] = []
+        while end < s.count {
+            sMap[s[end], default: 0] += 1
+            end += 1
 
-        for i in 0..<s.count {
-            if i >= p.count {
-                let firstChar = s[i - p.count]
-                if let countForChar = sDict[firstChar] {
-                    if countForChar == 1 {
-                        sDict[firstChar] = nil
-                    } else {
-                        sDict[firstChar] = countForChar - 1
-                    }
+            if (end - start) == p.count {
+                if sMap == pMap {
+                    results.append(start)
                 }
-            }
 
-            sDict[s[i], default: 0] += 1
+                sMap[s[start]]! -= 1
+                if sMap[s[start]] == 0 {
+                    sMap.removeValue(forKey: s[start])
+                }
 
-            if sDict == pDict {
-                results.append(i - p.count + 1)
+                start += 1
             }
         }
-
         return results
     }
 }
