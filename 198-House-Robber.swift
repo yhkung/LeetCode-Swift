@@ -27,8 +27,8 @@ class Solution {
 
 /// 198. House Robber
 /// - Approach: Iterative + N variables (bottom-up)
-/// - Space Complexity: O(n)
-/// - Time Complexity: O(1)
+/// - Time Complexity: O(n)
+/// - Space Complexity: O(1)
 class Solution {
     func rob(_ nums: [Int]) -> Int {
         var prev = 0
