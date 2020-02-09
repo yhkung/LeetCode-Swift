@@ -63,26 +63,37 @@ class Solution {
 /// 33. Search In Rotated Sorted Array
 /// - Approach: One-Pass binary search
 /// - Time Complexity: O(logn)
+/// - Space Complexity: O(1)
 class Solution {
     func search(_ nums: [Int], _ target: Int) -> Int {
-        guard !nums.isEmpty else { return -1 }
-        var left = 0
-        var right = nums.count - 1
-        while right >= left {
-            let mid = left + (right - left) / 2
+        var low = 0
+        var high = nums.count
+        while low < high {
+            let mid = low + (high - low) / 2
             if nums[mid] == target {
                 return mid
-            } else if nums[mid] >= nums[left] {
-                if target >= nums[left] && target < nums[mid] {
-                    right = mid - 1
+            }
+
+            /// Left side is sorted
+            if nums[low] <= nums[mid] {
+
+                /// nums[low] <= target < nums[mid], means the target number locate in left side
+                /// So we can move `high` pointer to mid
+                if nums[low] <= target && target < nums[mid] {
+                    high = mid
                 } else {
-                    left = mid + 1
+                    low = mid + 1
                 }
-            } else {
-                if target <= nums[right] && target > nums[mid] {
-                    left = mid + 1
+            }
+            /// Right side is sorted
+            else {
+                /// Notice - Using `high - 1` of number array prevent from index of range
+                /// nums[mid] <= target <= nums[high - 1], means the target number locate in left side
+                /// So we can move `high` pointer to mid
+                if nums[mid] <= target && target <= nums[high - 1] {
+                    low = mid + 1
                 } else {
-                    right = mid - 1
+                    high = mid
                 }
             }
         }
