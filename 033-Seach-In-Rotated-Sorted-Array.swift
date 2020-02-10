@@ -89,7 +89,7 @@ class Solution {
             else {
                 /// Notice - Using `high - 1` of number array prevent from index of range
                 /// nums[mid] <= target <= nums[high - 1], means the target number locate in left side
-                /// So we can move `high` pointer to mid
+                /// So we can move `low` pointer to `mid + 1`
                 if nums[mid] <= target && target <= nums[high - 1] {
                     low = mid + 1
                 } else {
