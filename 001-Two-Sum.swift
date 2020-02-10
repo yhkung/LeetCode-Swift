@@ -1,12 +1,15 @@
+/// 001 - Two Sum
+/// - Approach: Hash Table
+/// - Time Complexity: O(n)
+/// - Space Complexity: O(n)
 class Solution {
     func twoSum(_ nums: [Int], _ target: Int) -> [Int] {
-        var map = [Int: Int]()
-        for i in 0...nums.count-1 {
-            let complement = target - nums[i]
-            if map.keys.contains(complement) {
-                return [i, map[complement]!]
+        var dict: [Int: Int] = [] /// [Number: Index of Number]
+        for (i, n) in nums.enumerated() {
+            if let index = dict[target - n] {
+                return [index, i]
             }
-            map[nums[i]] = i
+            dict[n] = i
         }
         return []
     }
