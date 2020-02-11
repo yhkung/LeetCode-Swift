@@ -18,9 +18,8 @@ class Solution {
         }
         while p1 < m {
             nums.append(nums1[p1])
-                p1 += 1
+            p1 += 1
         }
-
         while p2 < n {
             nums.append(nums2[p2])
             p2 += 1
