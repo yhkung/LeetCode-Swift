@@ -65,3 +65,60 @@ class Solution {
         return results
     }
 }
+
+/// 1182 - Shortest Distance to Target Color
+/// - Approach: Binary Search
+/// - Time Complexity: O(n)
+/// - Space Complexity: O(n)
+class Solution {
+    func shortestDistanceColor(_ colors: [Int], _ queries: [[Int]]) -> [Int] {
+        var dict: [Int: [Int]] = [:]
+        for (i, c) in colors.enumerated() {
+            dict[c, default: []].append(i)
+        }
+
+        var results: [Int] = []
+        for q in queries {
+            let i = q[0]
+            var c = q[1]
+
+            if colors[i] == c {
+                results.append(0)
+                continue
+            }
+
+            guard let arr = dict[c] else {
+                results.append(-1)
+                continue
+            }
+
+            let index = binarySearch(arr, i)
+
+            if index == arr.count {
+                results.append(i - arr[index - 1])
+            } else if index == 0 {
+                results.append(arr[0] - i)
+            } else {
+                let l = i - arr[index - 1]
+                let r = arr[index] - i
+                results.append(min(l, r))
+            }
+        }
+        return results
+    }
+
+    private func binarySearch(_ nums: [Int], _ target: Int) -> Int {
+        guard !nums.isEmpty else { return 0 }
+        var lo = 0
+        var hi = nums.count
+        while lo < hi {
+            let mid = lo + (hi - lo) / 2
+            if nums[mid] < target {
+                lo = mid + 1
+            } else {
+                hi = mid
+            }
+        }
+        return lo
+    }
+}
