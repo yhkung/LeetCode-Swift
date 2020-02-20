@@ -28,3 +28,32 @@ class Solution {
         }
     }
 }
+
+/// 112 - Path Sum
+/// - Approach: Iteration
+/// - Time Complexity: O(n), where n is the number of nodes
+/// - Space Complexity: Worst Case O(n), where n is the height of tree, the storage to keep call stack
+class Solution {
+    func hasPathSum(_ root: TreeNode?, _ sum: Int) -> Bool {
+        guard let root = root else { return false }
+
+        var stack: [(TreeNode, Int)] = []
+        stack.append((root, sum - root.val))
+
+        while !stack.isEmpty {
+            let curr = stack.removeLast()
+            let node = curr.0
+            let curSum = curr.1
+            if node.left == nil && node.right == nil && curSum == 0 {
+                return true
+            }
+            if let left = node.left {
+                stack.append((left, curSum - left.val))
+            }
+            if let right = node.right {
+                stack.append((right, curSum - right.val))
+            }
+        }
+        return false
+    }
+}
