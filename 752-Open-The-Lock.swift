@@ -3,8 +3,8 @@
 /// - Approach: BFS
 class Solution {
     func openLock(_ deadends: [String], _ target: String) -> Int {
-        var deadends: Set<[Int]> = Set(deadends.map { Array($0).compactMap { Int("\($0)") } })
-        var target: [Int] = Array(target).compactMap { Int("\($0)") }
+        let deadends: Set<[Int]> = Set(deadends.map { Array($0).compactMap { Int("\($0)") } })
+        let target: [Int] = Array(target).compactMap { Int("\($0)") }
         var turns: Int = 0
         var queue: [[Int]] = []
         var visited: Set<[Int]> = deadends
