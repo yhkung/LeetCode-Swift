@@ -7,16 +7,19 @@ class Solution {
         let target: [Int] = Array(target).compactMap { Int("\($0)") }
         var turns: Int = 0
         var queue: [[Int]] = []
-        var visited: Set<[Int]> = deadends
+        var visited: Set<[Int]> = Set()
 
-        if !visited.contains([0, 0, 0, 0]) {
-            queue.append([0, 0, 0, 0])
-            visited.insert([0, 0, 0, 0])
-        }
+        queue.append([0, 0, 0, 0])
+        visited.insert([0, 0, 0, 0])
 
         while !queue.isEmpty {
             for _ in 0..<queue.count {
                 let cur = queue.removeFirst()
+
+                if deadends.contains(cur) {
+                    continue
+                }
+
                 if cur == target {
                     return turns
                 }
@@ -26,7 +29,7 @@ class Solution {
                         var neighbor = cur
                         neighbor[i] = ((neighbor[i] + d) + 10) % 10
 
-                        if !visited.contains(neighbor) {
+                        if !visited.contains(neighbor) && !deadends.contains(neighbor) {
                             queue.append(neighbor)
                             visited.insert(neighbor)
                         }
