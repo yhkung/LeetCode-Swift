@@ -32,3 +32,23 @@ class Solution {
         return steps
     }
 }
+
+/// 279 - Perfect Squares
+/// - Link: https://leetcode.com/problems/perfect-squares/
+/// - Approach: DP
+class Solution {
+    func numSquares(_ n: Int) -> Int {
+        var dp: [Int] = [0]
+        for i in 1...n {
+            var minNum = Int.max
+            for j in 1...n {
+                if i < j * j {
+                    break
+                }
+                minNum = min(minNum, dp[i - j * j] + 1)
+            }
+            dp.append(minNum)
+        }
+        return dp[n]
+    }
+}
