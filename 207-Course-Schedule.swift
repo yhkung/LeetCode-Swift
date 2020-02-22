@@ -1,4 +1,6 @@
 /// 207 - Course Schedule
+/// - Link: https://leetcode.com/problems/course-schedule/
+/// - Approach: BFS Topological Sorting
 class Solution {
     func canFinish(_ numCourses: Int, _ prerequisites: [[Int]]) -> Bool {
         /// An array record prerequiestes of courses, index: Course, value: Pre-courses
