@@ -14,7 +14,6 @@ class Solution {
         queue.append(mat)
         visited.insert(mat)
 
-        print(target)
         var steps: Int = -1
         while !queue.isEmpty {
             steps += 1
