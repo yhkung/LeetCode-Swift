@@ -37,18 +37,18 @@ class Solution {
 /// - Link: https://leetcode.com/problems/perfect-squares/
 /// - Approach: DP
 class Solution {
-    func numSquares(_ n: Int) -> Int {
+    func coinChange(_ coins: [Int], _ amount: Int) -> Int {
+        guard amount > 0 else { return 0 }
         var dp: [Int] = [0]
-        for i in 1...n {
-            var minNum = Int.max
-            for j in 1...n {
-                if i < j * j {
-                    break
+        for i in 1...amount {
+            var num = amount + 1
+            for c in coins {
+                if i >= c {
+                    num = min(num, dp[i - c] + 1)
                 }
-                minNum = min(minNum, dp[i - j * j] + 1)
             }
-            dp.append(minNum)
+            dp.append(num)
         }
-        return dp[n]
+        return dp[amount] > amount ? -1 : dp[amount]
     }
 }

@@ -1,4 +1,23 @@
 /// 322 - Coin Change
+/// - Approach: DP
+class Solution {
+    func coinChange(_ coins: [Int], _ amount: Int) -> Int {
+        guard amount > 0 else { return 0 }
+        var dp: [Int] = [0]
+        for i in 1...amount {
+            var num = amount + 1
+            for c in coins {
+                if i > c {
+                    num = min(num, dp[i - c] + 1)
+                }
+            }
+            dp.append(num)
+        }
+        return dp[amount] > amount ? -1 : dp[amount]
+    }
+}
+
+/// 322 - Coin Change
 /// - Approach: BFS
 class Solution {
     func coinChange(_ coins: [Int], _ amount: Int) -> Int {
