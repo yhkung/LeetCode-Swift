@@ -15,13 +15,10 @@ class Solution {
                     let sum = cur + coin
                     if sum == amount {
                         return num
-                    } else if sum > amount {
-                        continue
-                    } else {
-                        if !visited.contains(sum) {
-                            queue.append(sum)
-                            visited.insert(sum)
-                        }
+                    }
+                    if sum < amount && !visited.contains(sum) {
+                        queue.append(sum)
+                        visited.insert(sum)
                     }
                 }
             }
