@@ -1,5 +1,36 @@
 /// 322 - Coin Change
-/// - Approach: DP
+/// - Approach: DP, Top-Down
+class Solution {
+    func coinChange(_ coins: [Int], _ amount: Int) -> Int {
+        guard amount > 0 else { return 0 }
+        var memo: [Int: Int] = [:]
+        return coinChange(coins, amount, &memo)
+    }
+
+    private func coinChange(_ coins: [Int], _ amount: Int, _ memo: inout [Int: Int]) -> Int {
+        if amount < 0 {
+            return -1
+        }
+        if amount == 0 {
+            return 0
+        }
+        if let count = memo[amount] {
+            return count
+        }
+        var num = Int.max
+        for coin in coins {
+            let res = coinChange(coins, amount - coin, &memo)
+            if res >= 0 && res < num {
+                num = res + 1
+            }
+            memo[amount] = num == Int.max ? -1 : num
+        }
+        return memo[amount] ?? -1
+    }
+}
+
+/// 322 - Coin Change
+/// - Approach: DP, Bottom-Up
 class Solution {
     func coinChange(_ coins: [Int], _ amount: Int) -> Int {
         guard amount > 0 else { return 0 }
