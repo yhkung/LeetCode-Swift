@@ -1,4 +1,5 @@
-/// 13452 - Product of Last K Numbers
+/// 1352 - Product of Last K Numbers
+/// - Time Complexity: O(1)
 class ProductOfNumbers {
 
     private var products: [Int]
