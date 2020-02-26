@@ -1,42 +1,43 @@
 /// 207 - Course Schedule
 /// - Link: https://leetcode.com/problems/course-schedule/
 /// - Approach: BFS Topological Sorting
+/// 207 - Course Schedule
 class Solution {
     func canFinish(_ numCourses: Int, _ prerequisites: [[Int]]) -> Bool {
-        /// An array record prerequiestes of courses, index: Course, value: Pre-courses
-        var graph: [[Int]] = Array(repeating: [], count: numCourses)
 
-        /// An array hold the count where the course as a pre-course
-        var degrees: [Int] =  Array(repeating: 0, count: numCourses)
+        /// Array to keep tracking neighbors of course
+        var neighbors: [[Int]] = Array(repeating: [], count: numCourses)
 
-        /// An array represent courses without any pre-course
-        var courses: [Int] = []
+        /// Array to keep tracking prerequisites courses count of course
+        var degreeOfCourses: [Int] = Array(repeating: 0, count: numCourses)
 
-        for prerequisite in prerequisites {
-            let pre = prerequisite[0]
-            let course = prerequisite[1]
-            graph[course].append(pre)
-            degrees[pre] += 1
+        var queue: [Int] = []
+
+        for pre in prerequisites {
+            let preCourse = pre[1]
+            let course = pre[0]
+            neighbors[preCourse].append(course)
+            degreeOfCourses[course] += 1
         }
 
-        for (course, degree) in degrees.enumerated() {
-            if degree == 0 {
-                courses.append(course)
+        for course in 0..<degreeOfCourses.count {
+            if degreeOfCourses[course] == 0 {
+                queue.append(course)
             }
         }
 
-        var i = 0
-        while i < courses.count {
-            let c = courses[i]
-            for pre in graph[c] {
-                degrees[pre] -= 1
-                if degrees[pre] == 0 {
-                    courses.append(pre)
+        while !queue.isEmpty {
+            let course = queue.removeFirst()
+            for c in neighbors[course] {
+                degreeOfCourses[c] -= 1
+                if degreeOfCourses[c] == 0 {
+                    queue.append(c)
                 }
             }
-            i += 1
         }
 
-        return courses.count == numCourses
+        var count: Int = 0
+        for d in degreeOfCourses { if d > 0 { return false } }
+        return true
     }
 }
