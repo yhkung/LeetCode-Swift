@@ -5,7 +5,7 @@ class Solution {
     func pathSum(_ root: TreeNode?, _ sum: Int) -> [[Int]] {
         guard let root = root else { return [] }
 
-        var stack: [(TreeNode, Int, [Int])] = []
+        var stack: [(TreeNode?, Int, [Int])] = []
         var paths: [[Int]] = []
 
         stack.append((root, sum, []))
@@ -16,17 +16,15 @@ class Solution {
             let remainingSum = cur.1
             var path = cur.2
 
+            guard let node = node else { continue }
+
             path.append(node.val)
 
             if node.val == remainingSum && node.left == nil && node.right == nil {
                 paths.append(path)
             } else {
-                if let left = node.left {
-                    stack.append((left, remainingSum - node.val, path))
-                }
-                if let right = node.right {
-                    stack.append((right, remainingSum - node.val, path))
-                }
+                stack.append((node.left, remainingSum - node.val, path))
+                stack.append((node.right, remainingSum - node.val, path))
             }
         }
 
