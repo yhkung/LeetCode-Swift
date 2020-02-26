@@ -1,6 +1,43 @@
 /// 113 - Path Sum II
 /// - Link: https://leetcode.com/problems/path-sum-ii/
-/// - Approach: DFS
+/// - Approach: DFS, using Stack
+class Solution {
+    func pathSum(_ root: TreeNode?, _ sum: Int) -> [[Int]] {
+        guard let root = root else { return [] }
+
+        var stack: [(TreeNode, Int, [Int])] = []
+        var paths: [[Int]] = []
+
+        stack.append((root, sum, []))
+
+        while !stack.isEmpty {
+            let cur = stack.removeLast()
+            let node = cur.0
+            let remainingSum = cur.1
+            var path = cur.2
+
+            path.append(node.val)
+
+            if node.val == remainingSum && node.left == nil && node.right == nil {
+                paths.append(path)
+            } else {
+                if let left = node.left {
+                    stack.append((left, remainingSum - node.val, path))
+                }
+                if let right = node.right {
+                    stack.append((right, remainingSum - node.val, path))
+                }
+            }
+        }
+
+        return paths
+    }
+}
+
+
+/// 113 - Path Sum II
+/// - Link: https://leetcode.com/problems/path-sum-ii/
+/// - Approach: DFS, Recursion
 class Solution {
     func pathSum(_ root: TreeNode?, _ sum: Int) -> [[Int]] {
         guard let root = root else { return [] }
