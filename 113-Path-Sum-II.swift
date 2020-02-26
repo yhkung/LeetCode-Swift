@@ -1,5 +1,35 @@
 /// 113 - Path Sum II
 /// - Link: https://leetcode.com/problems/path-sum-ii/
+/// - Approach: DFS
+class Solution {
+    func pathSum(_ root: TreeNode?, _ sum: Int) -> [[Int]] {
+        guard let root = root else { return [] }
+        return pathSum(root, sum, [], [])
+    }
+
+    private func pathSum(_ node: TreeNode, _ remainingSum: Int, _ path: [Int], _ paths: [[Int]]) -> [[Int]] {
+        var paths = paths
+        if node.left == nil && node.right == nil {
+            if node.val == remainingSum {
+                paths.append(path + [node.val])
+                return paths
+            } else {
+                return paths
+            }
+        }
+        var path = path + [node.val]
+        if let left = node.left {
+            paths = pathSum(left, remainingSum - node.val, path, paths)
+        }
+        if let right = node.right {
+            paths = pathSum(right, remainingSum - node.val, path, paths)
+        }
+        return paths
+    }
+}
+
+/// 113 - Path Sum II
+/// - Link: https://leetcode.com/problems/path-sum-ii/
 /// - Approach: BFS
 class Solution {
     func pathSum(_ root: TreeNode?, _ sum: Int) -> [[Int]] {
