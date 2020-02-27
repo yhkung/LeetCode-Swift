@@ -45,8 +45,8 @@ class Solution {
     private func pathSum(_ node: TreeNode, _ remainingSum: Int, _ path: [Int], _ paths: [[Int]]) -> [[Int]] {
         var paths = paths
         if node.left == nil && node.right == nil {
-            if node.val == remainingSum {
-                paths.append(path + [node.val])
+            if remainingSum == 0 {
+                paths.append(path)
                 return paths
             } else {
                 return paths
