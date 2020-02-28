@@ -4,19 +4,19 @@
 class Solution {
     func permute(_ nums: [Int]) -> [[Int]] {
         var results: [[Int]] = []
-        permutate(nums, [], 0, &results)
+        permutate(nums, [], &results)
         return results
     }
 
-    func permutate(_ nums: [Int], _ permutations: [Int], _ index: Int, _ results: inout [[Int]]) {
-        if index == nums.count {
+    func permutate(_ nums: [Int], _ permutations: [Int], _ results: inout [[Int]]) {
+        if permutations.count == nums.count {
             results.append(permutations)
             return
         }
         for i in 0..<nums.count {
             let n = nums[i]
             if !permutations.contains(n) {
-                permutate(nums, permutations + [n], index + 1, &results)
+                permutate(nums, permutations + [n], &results)
             }
         }
     }
@@ -26,21 +26,16 @@ class Solution {
 class Solution {
     func permute(_ nums: [Int]) -> [[Int]] {
         var results: [[Int]] = []
-        var stack: [([Int], Int)] = [([], 0)]
+        var stack: [[Int]] = [[]]
         while !stack.isEmpty {
             let cur = stack.removeLast()
-            let permutation = cur.0
-            let index = cur.1
-
-            if index == nums.count {
-                results.append(permutation)
+            if cur.count == nums.count {
+                results.append(cur)
                 continue
             }
-
-            for i in 0..<nums.count {
-                let n = nums[i]
-                if !permutation.contains(n) {
-                    stack.append((permutation + [n], index + 1))
+            for n in nums {
+                if !cur.contains(n) {
+                    stack.append(cur + [n])
                 }
             }
         }
