@@ -38,22 +38,24 @@ class Solution {
 /// - Approach: Recursion
 class Solution {
     func combinationSum(_ candidates: [Int], _ target: Int) -> [[Int]] {
-        return dfs(candidates, target, [], 0, [])
+        var results: [[Int]] = []
+        var combination: [Int] = []
+        backtracking(&results, &combination, candidates.sorted(), target, 0)
+        return results
     }
 
-    func dfs(_ nums: [Int], _ remainingSum: Int, _ result: [Int], _ index: Int, _ results: [[Int]]) -> [[Int]] {
-        guard remainingSum > 0 else { return results }
-        var results = results
-        for i in index..<nums.count {
-            let num = nums[i]
-            let res = result + [num]
-            if num == remainingSum {
-                results.append(res)
-            } else {
-                results = dfs(nums, remainingSum - num, res, i, results)
+    private func backtracking(_ results: inout [[Int]], _ combination: inout [Int], _ nums: [Int], _ remain: Int, _ index: Int) {
+        if remain < 0 {
+            return
+        } else if remain == 0 {
+            results.append(combination)
+        } else {
+             for i in index..<nums.count {
+                combination.append(nums[i])
+                backtracking(&results, &combination, nums, remain - nums[i], i)
+                combination.removeLast()
             }
         }
-        return results
     }
 }
 
