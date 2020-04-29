@@ -1,5 +1,7 @@
 /// 124 - Binary Tree Maximum Path Sum
 /// - Link: https://leetcode.com/problems/binary-tree-maximum-path-sum/
+/// - Time: O(n), where n is number of nodes, since we visit each node
+/// - Space: O(log(n)). We have to keep a recursion stack of the size of the tree height.
 /// - Approach: Recursion
 /**
  * Definition for a binary tree node.
