@@ -13,22 +13,27 @@ class Solution {
         }
 
         var image = image
-        var visited = Set<[Int]>()
         var todo = [[sr, sc]]
         var color = image[sr][sc]
+
+        if color == newColor {
+            return image
+        }
+
         let directions = [(0, 1), (1, 0), (-1, 0), (0, -1)]
 
         while !todo.isEmpty {
             var cur = todo.removeFirst()
-            if image[cur[0]][cur[1]] != color { continue }
+            if image[cur[0]][cur[1]] != color {
+                continue
+            }
 
             image[cur[0]][cur[1]] = newColor
 
             for dir in directions {
                 let next = [cur[0] + dir.0, cur[1] + dir.1]
-                if isValid(next[0], next[1], m, n) && !visited.contains(next) {
+                if isValid(next[0], next[1], m, n) {
                     todo.append(next)
-                    visited.insert(next)
                 }
             }
         }
