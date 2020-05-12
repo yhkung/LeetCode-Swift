@@ -45,3 +45,25 @@ class Solution {
         return -1
     }
 }
+
+class Solution {
+    func singleNonDuplicate(_ nums: [Int]) -> Int {
+        var low = 0
+        var high = nums.count - 1
+
+        while low < high {
+            var mid = low + (high - low) / 2
+
+            if mid % 2 == 1 {
+                mid -= 1
+            }
+
+            if nums[mid] == nums[mid + 1] {
+                low += 2
+            } else {
+                high = mid
+            }
+        }
+        return nums[low]
+    }
+}
