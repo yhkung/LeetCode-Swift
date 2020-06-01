@@ -1,7 +1,7 @@
 /// 576 - Permutation in String
 /// - Link: https://leetcode.com/problems/permutation-in-string/
-/// - Time: O(n)
-/// - Space: O(1)
+/// - Time: O(m + n), where m is the length of s1, n is the length of s2
+/// - Space: O(m + n), where m is the length of s1, n is the length of s2
 class Solution {
     func checkInclusion(_ s1: String, _ s2: String) -> Bool {
         let s1 = Array(s1)
