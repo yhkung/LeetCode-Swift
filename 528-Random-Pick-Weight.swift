@@ -5,9 +5,8 @@ class Solution {
     var prefixSum = [Int]()
 
     init(_ w: [Int]) {
-        if !w.isEmpty {
-            prefixSum.append(w[0])
-        }
+        guard !w.isEmpty else { return }
+        prefixSum.append(w[0])
         for i in 1..<w.count {
             prefixSum.append(prefixSum[i - 1] + w[i])
         }
