@@ -1,3 +1,6 @@
+/// 258 - Add Digits
+/// - Link: https://leetcode.com/problems/add-digits/
+/// - Approach: Recursion
 class Solution {
     func addDigits(_ num: Int) -> Int {
         var n = num
@@ -17,5 +20,12 @@ class Solution {
         }
         return sum
     }
+}
 
+/// - Approach: Math
+/// - Ref: https://en.wikipedia.org/wiki/Digital_root#Congruence_formula
+class Solution {
+    func addDigits(_ num: Int) -> Int {
+        return 1 + (num - 1) % 9
+    }
 }
