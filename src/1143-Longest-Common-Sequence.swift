@@ -2,18 +2,65 @@
 /// https://leetcode.com/problems/longest-common-subsequence/
 class Solution {
     func longestCommonSubsequence(_ text1: String, _ text2: String) -> Int {
-        var text1 = text1.map { String($0) }
-        var text2 = text2.map { String($0) }
-        var dp = Array(repeating: Array(repeating: 0, count:text2.count + 1), count:text1.count + 1)     
-        for i in 0..<text1.count {
-            for j in 0..<text2.count {
+        if text1 == text2 {
+            return text1.count
+        }
+        
+        if text1.isEmpty || text2.isEmpty {
+            return 0
+        }
+        
+        let text1 = Array(text1)
+        let text2 = Array(text2)
+        
+        let m = text1.count
+        let n = text2.count
+        
+        var dp = Array(repeating: Array(repeating: 0, count: n + 1), count: m + 1)
+                
+        for i in 0..<m {
+            for j in 0..<n {
                 if text1[i] == text2[j] {
-                    dp[i+1][j+1] = 1 + dp[i][j]
+                    dp[i + 1][j + 1] = dp[i][j] + 1
                 } else {
-                    dp[i+1][j+1] = max(dp[i+1][j], dp[i][j+1])
+                    dp[i + 1][j + 1] = max(dp[i][j + 1], dp[i + 1][j])
                 }
             }
         }
-        return dp[text1.count][text2.count]
+        
+        return dp[m][n]
+    }
+}
+
+/// Pratice #2
+class Solution {
+    func longestCommonSubsequence(_ text1: String, _ text2: String) -> Int {
+        if text1 == text2 {
+            return text1.count
+        }
+        
+        if text1.isEmpty || text2.isEmpty {
+            return 0
+        }
+        
+        let text1 = Array(text1)
+        let text2 = Array(text2)
+        
+        let m = text1.count
+        let n = text2.count
+        
+        var dp = Array(repeating: Array(repeating: 0, count: n + 1), count: m + 1)
+                
+        for i in 0..<m {
+            for j in 0..<n {
+                if text1[i] == text2[j] {
+                    dp[i + 1][j + 1] = dp[i][j] + 1
+                } else {
+                    dp[i + 1][j + 1] = max(dp[i][j + 1], dp[i + 1][j])
+                }
+            }
+        }
+        
+        return dp[m][n]
     }
 }
