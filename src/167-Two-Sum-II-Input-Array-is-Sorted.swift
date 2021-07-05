@@ -4,18 +4,25 @@
 /// - Space Complexity: O(1)
 class Solution {
     func twoSum(_ numbers: [Int], _ target: Int) -> [Int] {
+        guard !numbers.isEmpty else {
+            return []
+        }
+
         var left = 0
         var right = numbers.count - 1
+
         while left < right {
-            let res = numbers[left] + numbers[right]
-            if res == target {
+            let sum = numbers[left] + numbers[right]
+
+            if sum == target {
                 return [left + 1, right + 1]
-            } else if res > target {
+            } else if sum > target {
                 right -= 1
-            } else {
+            } else if sum < target{
                 left += 1
             }
         }
+
         return []
     }
 }
