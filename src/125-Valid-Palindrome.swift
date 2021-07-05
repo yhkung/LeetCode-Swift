@@ -1,31 +1,35 @@
 /// 125. Valid Palindrome
 /// Time Complexity: O(n)
-extension Character {
-    var isLetterOrNumber: Bool {
-        return isLetter || isNumber
-    }
-}
-
 class Solution {
     func isPalindrome(_ s: String) -> Bool {
+        guard !s.isEmpty else {
+            return false
+        }
+
         let s = Array(s)
-        var i = 0
-        var j = s.count - 1
+        var left = 0
+        var right = s.count - 1
 
-        while i < j {
-            while i < j && !s[i].isLetterOrNumber {
-                i += 1
+        while left < right {
+            while left < right && !isValid(s[left]) {
+                left += 1
             }
-            while i < j && !s[j].isLetterOrNumber {
-                j -= 1
+            while left < right && !isValid(s[right]) {
+                right -= 1
             }
 
-            if s[i].lowercased() != s[j].lowercased() {
+            if s[left].lowercased() != s[right].lowercased() {
                 return false
             }
-            i += 1
-            j -= 1
+
+            left += 1
+            right -= 1
         }
+
         return true
+    }
+
+    private func isValid(_ c: Character) -> Bool {
+        return c.isLetter || c.isNumber
     }
 }
