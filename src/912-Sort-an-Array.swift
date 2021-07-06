@@ -26,3 +26,48 @@ class Solution {
     }
 
 }
+
+/// 912 - Sort an Array
+/// - Approach: Quick Sort
+/// - Time Complexity: O(nlogn)
+/// - Space Complexity: O(n)
+class Solution {
+    func sortArray(_ nums: [Int]) -> [Int] {
+        guard !nums.isEmpty else {
+            return nums
+        }
+        var nums = nums
+        quickSort(&nums, 0, nums.count - 1)
+        return nums
+    }
+
+
+    private func quickSort(_ nums: inout [Int], _ start: Int, _ end: Int) {
+        if start >= end {
+            return
+        }
+
+        var left = start
+        var right = end
+
+        var pivot = nums[(start + end) / 2]
+
+        while left <= right {
+            while left <= right && nums[left] < pivot {
+                left += 1
+            }
+            while left <= right && nums[right] > pivot {
+                right -= 1
+            }
+
+            if left <= right {
+                (nums[left], nums[right]) = (nums[right], nums[left])
+                left += 1
+                right -= 1
+            }
+        }
+
+        quickSort(&nums, start, right)
+        quickSort(&nums, left, end)
+    }
+}
