@@ -31,3 +31,46 @@ class Solution {
         return results
     }
 }
+
+class Solution {
+    func threeSum(_ nums: [Int]) -> [[Int]] {
+        guard nums.count >= 3 else {
+            return []
+        }
+        var nums = nums.sorted()
+        var results = [[Int]]()
+
+        for i in 0..<nums.count {
+            if i > 0 && nums[i] == nums[i - 1] {
+                continue
+            }
+            findTwoSum(nums[i], nums, i + 1, nums.count - 1, &results)
+        }
+
+        return results
+    }
+
+    private func findTwoSum(_ num: Int, _ nums: [Int], _ start: Int, _ end: Int, _ results: inout [[Int]]) {
+        var start = start
+        var end = end
+        let target = -num
+
+        while start < end {
+            let sum = nums[start] + nums[end]
+
+            if sum < target {
+                start += 1
+            } else if sum > target {
+                end -= 1
+            } else {
+                results.append([num, nums[start], nums[end]])
+                start += 1
+                end -= 1
+
+                while start < end && nums[start] == nums[start - 1] {
+                    start += 1
+                }
+            }
+        }
+    }
+}
