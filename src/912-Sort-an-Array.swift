@@ -71,3 +71,57 @@ class Solution {
         quickSort(&nums, left, end)
     }
 }
+
+/// Merge Sort
+/// Improvoment space complexity
+class Solution {
+    func sortArray(_ nums: [Int]) -> [Int] {
+        var nums = nums
+        var temp = Array(repeating: 0, count: nums.count)
+        mergeSort(&nums, 0, nums.count - 1, &temp)
+        return nums
+    }
+
+    private func mergeSort(_ nums: inout [Int], _ start: Int, _ end: Int, _ temp: inout [Int]) {
+        if start >= end {
+            return
+        }
+        let mid = start + (end - start) / 2
+        mergeSort(&nums, start, mid, &temp)
+        mergeSort(&nums, mid + 1, end, &temp)
+        merge(&nums, start, end, &temp)
+    }
+
+    private func merge(_ nums: inout [Int], _ start: Int, _ end: Int, _ temp: inout [Int]) {
+        let mid = start + (end - start) / 2
+        var leftIndex = start
+        var rightIndex = mid + 1
+        var index = start
+
+        while leftIndex <= mid && rightIndex <= end {
+            if nums[leftIndex] < nums[rightIndex] {
+                temp[index] = nums[leftIndex]
+                leftIndex += 1
+            } else {
+                temp[index] = nums[rightIndex]
+                rightIndex += 1
+            }
+            index += 1
+        }
+
+        while leftIndex <= mid {
+            temp[index] = nums[leftIndex]
+            leftIndex += 1
+            index += 1
+        }
+
+        while rightIndex <= end {
+            temp[index] = nums[rightIndex]
+            rightIndex += 1
+            index += 1
+        }
+
+        nums[start...end] = temp[start...end]
+    }
+
+}
