@@ -1,21 +1,24 @@
 class Solution {
-    func sortedSquares(_ A: [Int]) -> [Int] {
-        var l = 0
-        var r = A.count - 1
-        var index = A.count - 1
-        var res = Array(repeating: 0, count: A.count)
-        while l <= r {
-            let leftValue = A[l] * A[l]
-            let rightValue = A[r] * A[r]
+    func sortedSquares(_ nums: [Int]) -> [Int] {
+        var results = Array(repeating: 0, count: nums.count)
+        var left = 0
+        var right = nums.count - 1
+        var index = nums.count - 1
+
+        while left <= right {
+            let leftValue = nums[left] * nums[left]
+            let rightValue = nums[right] * nums[right]
             if leftValue > rightValue {
-                res[index] = leftValue
-                l += 1
+                results[index] = leftValue
+                left += 1
             } else {
-                res[index] = rightValue
-                r -= 1
+                results[index] = rightValue
+                right -= 1
             }
             index -= 1
         }
-        return res
+
+        return results
     }
+
 }
