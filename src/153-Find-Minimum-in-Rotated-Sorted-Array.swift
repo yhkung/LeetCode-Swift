@@ -43,3 +43,23 @@ class Solution {
         return min(nums[start], nums[end])
     }
 }
+
+class Solution {
+    func findMin(_ nums: [Int]) -> Int {
+        guard !nums.isEmpty else { return -1 }
+
+        var start = 0
+        var end = nums.count - 1
+
+        while start < end {
+            let mid = start + (end - start) / 2
+            if nums[mid] > nums[end] {
+                start = mid + 1
+            } else {
+                end = mid
+            }
+        }
+
+        return nums[start]
+    }
+}
