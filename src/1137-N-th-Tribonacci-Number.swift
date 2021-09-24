@@ -17,3 +17,27 @@ class Solution {
         return arr[2]
     }
 }
+
+class Solution {
+    func tribonacci(_ n: Int) -> Int {
+        if n == 0 {
+            return 0
+        }
+        if n == 1 || n == 2 {
+            return 1
+        }
+
+        var a = 0
+        var b = 1
+        var c = 1
+
+        for i in 2..<n {
+            let next = a + b + c
+            a = b
+            b = c
+            c = next
+        }
+
+        return c
+    }
+}
