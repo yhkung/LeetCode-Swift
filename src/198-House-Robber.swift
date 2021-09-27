@@ -4,24 +4,25 @@
 /// - Time Complexity: O(n)
 class Solution {
     func rob(_ nums: [Int]) -> Int {
-        if nums.isEmpty {
-            return 0
-        }
         if nums.count == 1 {
             return nums[0]
         }
+
         if nums.count == 2 {
             return max(nums[0], nums[1])
         }
 
-        var dp: [Int] = [
-            nums[0],
-            max(nums[0], nums[1])
-        ]
-        for n in 2..<nums.count {
-            dp.append(max(nums[n] + dp[n - 2], dp[n - 1]))
+        let n = nums.count
+        var dp = Array(repeating: 0, count: n)
+        dp[0] = nums[0]
+        dp[1] = max(nums[0], nums[1])
+
+        for i in 2..<n {
+            let next = nums[i] + dp[i - 2]
+            dp[i] = max(next, dp[i - 1])
         }
-        return dp.last!
+
+        return dp[n - 1]
     }
 }
 
