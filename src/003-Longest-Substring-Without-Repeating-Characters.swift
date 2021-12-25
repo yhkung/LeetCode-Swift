@@ -3,24 +3,56 @@
 /// - Time Complexity: O(n)
 class Solution {
     func lengthOfLongestSubstring(_ s: String) -> Int {
-        guard !s.isEmpty else { return s.count }
+        guard !s.isEmpty else {
+            return 0
+        }
         let s = Array(s)
+
+        var maxLength = 0
         var start = 0
         var end = 0
-        var length = 0
-        var map: [Character: Int] = [:]
-        while end < s.count {
-            map[s[end], default: 0] += 1
-            end += 1
-            if map.count <= length {
-                map[s[start]]! -= 1
-                if map[s[start]] == 0 {
-                    map.removeValue(forKey: s[start])
-                }
+        let n = s.count
+        var memo = Set<Character>()
+
+        while end < n {
+            if memo.contains(s[end]) {
+                memo.remove(s[start])
                 start += 1
+            } else {
+                memo.insert(s[end])
+                maxLength = max(maxLength, end - start + 1)
+                end += 1
             }
-            length = max(length, end - start)
         }
-        return length
+        return maxLength
+    }
+}
+
+class Solution {
+    func lengthOfLongestSubstring(_ s: String) -> Int {
+        guard !s.isEmpty else {
+            return 0
+        }
+
+        let s = Array(s)
+
+        var maxLength = 0
+        var start = 0
+        var end = 0
+        let n = s.count
+        var indexes = [Character: Int]()
+
+        while end < n {
+            let next = s[end]
+            if let index = indexes[next] {
+                start = max(start, index)
+            }
+
+            maxLength = max(maxLength, end - start + 1)
+            indexes[s[end]] = end + 1
+            end += 1
+        }
+
+        return maxLength
     }
 }
