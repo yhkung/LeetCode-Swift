@@ -1,3 +1,46 @@
+class Solution {
+    func search(_ nums: [Int], _ target: Int) -> Int {
+        guard !nums.isEmpty else {
+            return -1
+        }
+
+        var start = 0
+        var end = nums.count - 1
+
+        while start + 1 < end {
+            let mid = (end - start) / 2 + start
+
+            if nums[mid] == target {
+                return mid
+            }
+
+            if nums[start] <= nums[mid] {
+                if nums[start] <= target && target <= nums[mid] {
+                    end = mid
+                } else {
+                    start = mid
+                }
+            } else {
+                if nums[mid] <= target && target <= nums[end] {
+                    start = mid
+                } else {
+                    end = mid
+                }
+            }
+        }
+
+        if nums[start] == target {
+            return start
+        }
+
+        if nums[end] == target {
+            return end
+        }
+
+        return -1
+    }
+}
+
 /// 33. Search In Rotated Sorted Array
 /// - Approach: Two-Pass binary search
 /// - Time Complexity: O(logn)
