@@ -28,3 +28,33 @@ class Solution {
         }.map { $1 }
     }
 }
+
+class Solution {
+    typealias Anagram = [Character: Int]
+
+    func groupAnagrams(_ strs: [String]) -> [[String]] {
+        var anagramDict: [Anagram: [String]] = [:]
+
+        for str in strs {
+            let anagram = anagramFromString(str)
+            anagramDict[anagram, default: []].append(str)
+        }
+
+        var results = [[String]]()
+        for (_, strs) in anagramDict {
+            results.append(strs)
+        }
+
+        return results
+    }
+
+    private func anagramFromString(_ str: String) -> Anagram {
+        var anagram = [Character: Int]()
+
+        for character in str {
+            anagram[character, default: 0] += 1
+        }
+
+        return anagram
+    }
+}
