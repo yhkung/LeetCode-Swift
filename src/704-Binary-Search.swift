@@ -16,3 +16,35 @@ class Solution {
         return -1
     }
 }
+
+class Solution {
+    func search(_ nums: [Int], _ target: Int) -> Int {
+        guard !nums.isEmpty else { 
+            return -1 
+        }
+        
+        var start = 0
+        var end = nums.count - 1
+
+        while start + 1 < end {
+            let mid = start + (end - start) / 2
+
+            if nums[mid] == target {
+                return mid
+            } else if nums[mid] < target {
+                start = mid
+            } else {
+                end = mid
+            }
+        }
+
+        if nums[start] == target {
+            return start
+        }
+        if nums[end] == target {
+            return end
+        }
+
+        return -1
+    }
+}
