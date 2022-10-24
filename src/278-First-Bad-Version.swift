@@ -8,16 +8,22 @@
  */
 class Solution : VersionControl {
     func firstBadVersion(_ n: Int) -> Int {
+        guard n > 1 else { 
+            return 1 
+        }
+
         var low = 0
         var high = n
+
         while low < high {
             let mid = low + (high - low) / 2
-            if isBadVersion(mid + 1) == false {
-                low = mid + 1
+            if isBadVersion(mid) {
+                high = mid // bad version in [low, mid]
             } else {
-                high = mid
+                low = mid + 1 // [mid + 1, high]
             }
         }
-        return low + 1
+        
+        return low
     }
 }
