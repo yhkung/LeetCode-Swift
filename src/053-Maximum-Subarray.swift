@@ -13,3 +13,44 @@ class Solution {
         return maximum
     }
 }
+
+class Solution {
+    func maxSubArray(_ nums: [Int]) -> Int {
+        guard !nums.isEmpty else { return 0 }
+        
+        var dp = Array(repeating: 0, count: nums.count)
+        dp[0] = nums[0]
+        var maximum = dp[0]
+
+        for i in 1..<nums.count {
+            if dp[i - 1] > 0 {
+                dp[i] = dp[i - 1] + nums[i]
+            } else {
+                dp[i] = nums[i]
+            }            
+            maximum = max(maximum, dp[i])
+        }
+
+        return maximum
+    }
+}
+
+class Solution {
+    func maxSubArray(_ nums: [Int]) -> Int {
+        guard !nums.isEmpty else { return 0 }
+        
+        var curr = nums[0]
+        var maximum = curr
+
+        for i in 1..<nums.count {
+            if curr > 0 {
+                curr += nums[i]
+            } else {
+                curr = nums[i]                
+            }            
+            maximum = max(maximum, curr)
+        }
+
+        return maximum
+    }
+}
