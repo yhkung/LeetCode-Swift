@@ -10,6 +10,8 @@
  * }
  */
 
+// Recursive
+
 class Solution {
     func preorder(_ root: Node?) -> [Int] {
     	var result = [Int]()
@@ -26,5 +28,30 @@ class Solution {
         for child in node.children {
             traversal(child, &result)
         }
+    }
+}
+
+// Iterative
+
+class Solution {
+    func preorder(_ root: Node?) -> [Int] {        
+        guard let root = root else { 
+            return [] 
+        }
+
+        var result = [Int]()
+        var queue = [Node]()
+        queue.append(root)
+
+        while !queue.isEmpty {
+            if let node = queue.popLast() {
+                result.append(node.val)
+                for i in 0..<node.children.count {
+                    queue.append(node.children[node.children.count - 1 - i])
+                }
+            }
+        }
+
+        return result
     }
 }
