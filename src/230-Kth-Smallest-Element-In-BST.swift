@@ -15,24 +15,45 @@
  *     }
  * }
  */
+
+ /// Iterative
 class Solution {
     func kthSmallest(_ root: TreeNode?, _ k: Int) -> Int {
-        var n: Int = 0
-        var stack: [TreeNode] = []
-        var curr: TreeNode? = root
-
-        while !stack.isEmpty || curr != nil {
-            while let node = curr {
-                stack.append(node)
-                curr = node.left
-            }
-            let node = stack.removeLast()
-            n += 1
+        var stack = [TreeNode]()
+        var cur = root
+        var n = 0            
+        while cur != nil || !stack.isEmpty {            
+            while cur != nil {
+                stack.append(cur)
+                cur = cur?.left
+            }                        
+            let node = stack.removeLast()            
+            n += 1                        
             if n == k {
-                return node.val
+                return node!.val
             }
-            curr = node.right
+            cur = cur?.right
         }
-        return 0
+
+        return -1
+    }
+}
+
+/// Recursive
+class Solution {
+    func kthSmallest(_ root: TreeNode?, _ k: Int) -> Int {
+        guard root != nil, k >= 0 else { 
+            return -1 
+        }
+        var arr = [Int]()
+        inorder(root, &arr)
+        return arr[k - 1]        
+    }
+
+    private func inorder(_ node: TreeNode?, _ arr: inout [Int]) {
+        guard let node = node else { return }
+        inorder(node.left, &arr)
+        arr.append(node.val)
+        inorder(node.right, &arr)
     }
 }
