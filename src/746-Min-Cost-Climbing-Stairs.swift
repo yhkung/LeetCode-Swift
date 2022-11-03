@@ -17,14 +17,20 @@ class Solution {
 /// Time Complexity: O(n)
 /// Space Complexity: O(1)
 class Solution {
-    func minCostClimbingStairs(_ cost: [Int]) -> Int {
-        var dp1 = 0
-        var dp2 = 0
-        for i in 0..<cost.count {
-            let dp = cost[i] + min(dp1, dp2)
-            dp2 = dp1
-            dp1 = dp0
+    func minCostClimbingStairs(_ cost: [Int]) -> Int {        
+        guard cost.count >= 2 else {
+            return 0
         }
-        return min(dp1, dp2)
+        let n = cost.count        
+        var twoStepsBefore = cost[0]
+        var oneStepsBefore = cost[1]
+
+        for i in 2..<n {
+            let curr = cost[i] + min(twoStepsBefore, oneStepsBefore)
+            twoStepsBefore = oneStepsBefore
+            oneStepsBefore = curr
+        }
+        
+        return min(oneStepsBefore, twoStepsBefore)
     }
 }
