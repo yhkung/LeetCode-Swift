@@ -26,3 +26,28 @@ class Solution {
         return maximumLength
     }
 }
+
+class Solution {
+    func lengthOfLongestSubstringKDistinct(_ s: String, _ k: Int) -> Int {
+        let s = Array(s)
+        var charCount = [Character: Int]()
+        var left = 0
+        var longest = 0
+
+        for right in 0..<s.count {
+            charCount[s[right], default: 0] += 1
+
+            while charCount.count > k {
+                charCount[s[left], default: 0] -= 1
+                if charCount[s[left], default: 0] <= 0 {
+                    charCount[s[left]] = nil
+                }
+                left += 1
+            }
+
+            longest = max(longest, right - left + 1)            
+        }
+
+        return longest
+    }
+}
