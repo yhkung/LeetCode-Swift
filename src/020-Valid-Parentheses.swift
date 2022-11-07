@@ -35,3 +35,29 @@ class Solution {
         return char == ")" || char == "]" || char == "}"
     }
 }
+
+class Solution {
+    func isValid(_ s: String) -> Bool {
+        var stack = [Character]()
+
+        var charMap: [Character: Character] = [
+            "}": "{",
+            "]": "[",
+            ")": "("
+        ]
+
+        for c in s {
+            if c == ")" || c == "]" || c == "}" {
+                if let last = stack.last, last == charMap[c, default: Character("")] {
+                    stack.removeLast()
+                } else {
+                    return false
+                }
+            } else {
+                stack.append(c)
+            }            
+        }
+
+        return stack.isEmpty
+    }
+}
