@@ -34,3 +34,19 @@ class Solution {
         return root
     }
 }
+
+class Solution {
+    func invertTree(_ root: TreeNode?) -> TreeNode? {
+        guard root != nil else { return nil }
+
+        var root = root    
+        let tmp = root?.left
+        root?.left = root?.right
+        root?.right = tmp        
+        
+        invertTree(root?.left)
+        invertTree(root?.right)
+
+        return root
+    }
+}
