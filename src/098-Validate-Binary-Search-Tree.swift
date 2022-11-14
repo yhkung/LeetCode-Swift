@@ -54,3 +54,18 @@ class Solution {
         return isLeftValid && isRightValid
     }
 }
+
+class Solution {
+    func isValidBST(_ root: TreeNode?) -> Bool {        
+        func isValid(_ node: TreeNode?, _ left: Int, _ right: Int) -> Bool {
+            guard let node = node else { 
+                return true 
+            }
+            if !(node.val > left && node.val < right) {
+                return false
+            }
+            return isValid(node.left, left, node.val) && isValid(node.right, node.val, right)
+        }
+        return isValid(root, Int.min, Int.max)
+    }
+}

@@ -35,3 +35,20 @@ class Solution {
         return max(left, right) + root.val
     }
 }
+
+class Solution {
+    func maxPathSum(_ root: TreeNode?) -> Int {
+        var sum = Int.min
+        dfs(root, &sum)
+        return sum
+    }
+    
+    private func dfs(_ root: TreeNode?, _ sum: inout Int) -> Int {
+        guard let root = root else { return 0 }                        
+        let left = max(dfs(root.left, &sum), 0)
+        let right = max(dfs(root.right, &sum), 0)
+        let val = left + right + root.val
+        sum = max(sum, val)
+        return max(left, right) + root.val
+    }
+}
