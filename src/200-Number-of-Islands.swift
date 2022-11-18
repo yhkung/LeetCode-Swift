@@ -71,4 +71,24 @@ class Solution {
             dfs(grid, nextRow, nextCol, &visited)
         }
     }
+
+    private func dfs2(_ grid: [[Character]], _ i: Int, _ j: Int, _ visited: inout [[Bool]]) {
+        let m = grid.count
+        let n = grid[0].count        
+        visited[i][j] = true
+        let dirs = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+        for dir in dirs {
+            let row = i + dir.0
+            let col = j + dir.1
+            if isValid(row, col) && !visited[row][col] && grid[row][col] == "1" {
+                dfs(grid, row, col, &visited)
+                visited[row][col] = true
+            }
+        }
+
+        func isValid(_ row: Int, _ col: Int) -> Bool {
+            return row >= 0 && row < m && col >= 0 && col < n
+        }
+    }
+
 }
