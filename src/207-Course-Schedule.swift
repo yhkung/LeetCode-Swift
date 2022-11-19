@@ -41,3 +41,42 @@ class Solution {
         return true
     }
 }
+
+/// - Approach: DFS
+/// Time: O(n + E)
+
+class Solution {
+    func canFinish(_ numCourses: Int, _ prerequisites: [[Int]]) -> Bool {
+        var preMap = [Int: [Int]]() // [1: [0]]
+        for pre in prerequisites {
+            preMap[pre[1], default: []].append(pre[0])            
+        }
+        var visit = Set<Int>()
+
+        func dfs(_ course: Int) -> Bool {
+            if visit.contains(course) {
+                return false
+            }            
+            if preMap[course, default: []].isEmpty {
+                return true
+            }
+            visit.insert(course)
+            for pre in preMap[course, default: []] {
+                if dfs(pre) == false {
+                    return false
+                }
+            }
+            visit.remove(course)
+            preMap[course] = []
+            return true
+        }
+
+        for c in 0..<numCourses {
+            if dfs(c) == false {
+                return false
+            }
+        }
+
+        return true
+    }    
+}
